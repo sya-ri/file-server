@@ -39,5 +39,5 @@ tasks.named("build") {
 }
 
 application {
-    mainClass.set("dev.s7a.f.MainKt")
+    mainClass.set("dev.s7a.f.Main")
 }

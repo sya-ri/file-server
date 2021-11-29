@@ -1,3 +1,5 @@
+@file:JvmName("Main")
+
 package dev.s7a.f
 
 import io.ktor.application.call
