@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty
  *
  * @see PropertiesFile.keyValue
  */
-class PropertiesValue(private val properties: Properties, private val key: String): ReadWriteProperty<Any?, String?> {
+class PropertiesValue(private val properties: Properties, private val key: String) : ReadWriteProperty<Any?, String?> {
     override fun getValue(thisRef: Any?, property: KProperty<*>): String? {
         return properties.getProperty(key)
     }
