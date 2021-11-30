@@ -3,6 +3,8 @@
 package dev.s7a.f
 
 import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.features.CallLogging
 import io.ktor.response.respondFile
 import io.ktor.routing.get
 import io.ktor.routing.routing
@@ -21,6 +23,7 @@ fun main() {
     logger.info("Using FileProvider is ${fileProvider.name}")
     fileProvider.settings.forEach { logger.info("- $it") }
     embeddedServer(CIO, port = Config.port) {
+        install(CallLogging)
         routing {
             get("{path...}") {
                 val path = call.parameters.getAll("path") ?: return@get
