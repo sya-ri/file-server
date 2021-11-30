@@ -22,7 +22,7 @@ configurations["implementation"].extendsFrom(shadowImplementation)
 dependencies {
     shadowImplementation(kotlin("stdlib-jdk8"))
     shadowImplementation("io.ktor:ktor-server-cio:1.6.6")
-    shadowImplementation("ch.qos.logback:logback-classic:1.2.6")
+    shadowImplementation("ch.qos.logback:logback-classic:1.2.7")
 }
 
 tasks.withType<KotlinCompile> {
