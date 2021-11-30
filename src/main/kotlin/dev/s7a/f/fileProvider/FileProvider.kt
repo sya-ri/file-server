@@ -1,18 +1,25 @@
 package dev.s7a.f.fileProvider
 
+import java.io.File
+
 /**
  * Get files
  */
 sealed interface FileProvider {
     /**
-     * name
+     * Name
      */
     val name: String
 
     /**
-     * current settings
+     * Current settings
      */
     val settings: List<String>
+
+    /**
+     * Get file
+     */
+    fun get(path: String): File?
 
     companion object {
         /**

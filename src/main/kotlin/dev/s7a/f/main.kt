@@ -3,7 +3,7 @@
 package dev.s7a.f
 
 import io.ktor.application.call
-import io.ktor.response.respondText
+import io.ktor.response.respondFile
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.cio.CIO
@@ -22,8 +22,10 @@ fun main() {
     fileProvider.settings.forEach { logger.info("- $it") }
     embeddedServer(CIO, port = Config.port) {
         routing {
-            get("/") {
-                call.respondText("Hello, world!")
+            get("{path...}") {
+                val path = call.parameters.getAll("path") ?: return@get
+                val file = fileProvider.get(path.joinToString("/")) ?: return@get
+                call.respondFile(file)
             }
         }
     }.start(wait = true)
