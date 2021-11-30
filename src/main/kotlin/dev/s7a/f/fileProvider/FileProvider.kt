@@ -19,14 +19,17 @@ sealed interface FileProvider {
     /**
      * Get file
      */
-    fun get(path: String): File?
+    suspend fun get(path: String): File?
 
     companion object {
         /**
          * Get [FileProvider] by name
          */
-        fun getByName(name: String) = FileProvider::class.sealedSubclasses.firstOrNull {
-            it.simpleName.equals(name, true)
-        }?.objectInstance
+        fun getByName(name: String) = setOf(
+            LocalFileProvider,
+            WebDAVFileProvider,
+        ).firstOrNull {
+            it.name.equals(name, true)
+        }
     }
 }

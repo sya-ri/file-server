@@ -32,5 +32,25 @@ object Config : PropertiesFile("config.properties") {
              */
             val root by keyValue("FileProvider_Local_Root").default("./")
         }
+
+        /**
+         * @see dev.s7a.f.fileProvider.WebDAVFileProvider
+         */
+        object WebDAV {
+            /**
+             * WebDAV url
+             */
+            val url by keyValue("FileProvider_WebDAV_Url").default("")
+
+            /**
+             * WebDAV username
+             */
+            val userName by keyValue("FileProvider_WebDAV_UserName").default("")
+
+            /**
+             * WebDAV password
+             */
+            val password by keyValue("FileProvider_WebDAV_Password").default("")
+        }
     }
 }
