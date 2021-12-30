@@ -64,10 +64,10 @@ object WebDAVFileProvider : FileProvider {
             if (extension.isEmpty()) "" else ".$extension"
         }
         val response = client.get("$url/$path")
-        clientLogger.info("${response.status}: $path")
         return if (response.status.isSuccess()) {
             createTempFile(suffix = suffix).toFile().apply {
                 response.bodyAsChannel().copyAndClose(writeChannel())
+                clientLogger.info("${response.status}: $path (${length()})")
             }
         } else {
             null
