@@ -2,14 +2,14 @@
 
 package dev.s7a.f
 
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.CallLogging
-import io.ktor.response.respondFile
-import io.ktor.routing.get
-import io.ktor.routing.routing
+import io.ktor.server.application.call
+import io.ktor.server.application.install
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.plugins.CallLogging
+import io.ktor.server.response.respondFile
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

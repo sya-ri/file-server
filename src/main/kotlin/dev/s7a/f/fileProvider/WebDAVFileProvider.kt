@@ -5,11 +5,11 @@ import dev.s7a.f.logger
 import dev.s7a.f.util.Statuses
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.features.auth.Auth
-import io.ktor.client.features.auth.providers.BasicAuthCredentials
-import io.ktor.client.features.auth.providers.basic
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BasicAuthCredentials
+import io.ktor.client.plugins.auth.providers.basic
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.isSuccess
 import io.ktor.util.cio.writeChannel
 import io.ktor.utils.io.copyAndClose
@@ -63,11 +63,11 @@ object WebDAVFileProvider : FileProvider {
         val suffix = path.substringAfterLast('.', "").let { extension ->
             if (extension.isEmpty()) "" else ".$extension"
         }
-        val response = client.get<HttpResponse>("$url/$path")
+        val response = client.get("$url/$path")
         clientLogger.info("${response.status}: $path")
         return if (response.status.isSuccess()) {
             createTempFile(suffix = suffix).toFile().apply {
-                response.content.copyAndClose(writeChannel())
+                response.bodyAsChannel().copyAndClose(writeChannel())
             }
         } else {
             null

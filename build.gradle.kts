@@ -22,6 +22,7 @@ configurations["implementation"].extendsFrom(shadowImplementation)
 dependencies {
     shadowImplementation(kotlin("stdlib-jdk8"))
     shadowImplementation("io.ktor:ktor-server-cio:2.0.0-beta-1")
+    shadowImplementation("io.ktor:ktor-server-call-logging:2.0.0-beta-1")
     shadowImplementation("io.ktor:ktor-client-cio:2.0.0-beta-1")
     shadowImplementation("io.ktor:ktor-client-auth:2.0.0-beta-1")
     shadowImplementation("ch.qos.logback:logback-classic:1.2.10")
