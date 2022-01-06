@@ -1,5 +1,6 @@
 package dev.s7a.f.fileProvider
 
+import dev.s7a.f.logger
 import java.io.File
 
 /**
@@ -20,6 +21,14 @@ sealed interface FileProvider {
      * Get file
      */
     suspend fun get(path: String): File?
+
+    /**
+     * Print fileProvider settings
+     */
+    fun printSettings() {
+        logger.info("Using FileProvider is $name")
+        settings.forEach { logger.info("- $it") }
+    }
 
     companion object {
         /**

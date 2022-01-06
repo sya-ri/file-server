@@ -20,8 +20,7 @@ val logger: Logger = LoggerFactory.getLogger("FileServer")
 
 fun main() {
     val fileProvider = Config.fileProvider
-    logger.info("Using FileProvider is ${fileProvider.name}")
-    fileProvider.settings.forEach { logger.info("- $it") }
+    fileProvider.printSettings()
     embeddedServer(CIO, port = Config.port) {
         install(CallLogging)
         routing {
