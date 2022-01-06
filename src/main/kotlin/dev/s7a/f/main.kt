@@ -5,6 +5,7 @@ package dev.s7a.f
 import io.ktor.server.application.install
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.plugins.AutoHeadResponse
 import io.ktor.server.plugins.CallLogging
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -19,6 +20,7 @@ fun main() {
     fileProvider.printSettings()
     embeddedServer(CIO, port = Config.port) {
         install(CallLogging)
+        install(AutoHeadResponse)
         fileProvider.setupRoute(this)
     }.start(wait = true)
 }
