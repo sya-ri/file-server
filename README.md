@@ -47,3 +47,11 @@ FileProvider_WebDAV_Password=
 
 - Local
 - WebDAV (via Ktor client)
+
+## Usage
+
+To download files.
+
+```shell
+curl -O --compressed <URL>
+```
