@@ -7,6 +7,7 @@ import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.plugins.AutoHeadResponse
 import io.ktor.server.plugins.CallLogging
+import io.ktor.server.plugins.Compression
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -21,6 +22,7 @@ fun main() {
     embeddedServer(CIO, port = Config.port) {
         install(CallLogging)
         install(AutoHeadResponse)
+        install(Compression)
         fileProvider.setupRoute(this)
     }.start(wait = true)
 }
