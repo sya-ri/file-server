@@ -11,7 +11,7 @@ object LocalFileProvider : FileProvider {
 
     override val name = "Local"
     override val settings = buildList {
-        add("root: $root")
+        add("root: ${File(root).toRelativeString(File("."))}/")
     }
 
     override suspend fun get(path: String): File? {
