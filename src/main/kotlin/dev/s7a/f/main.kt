@@ -2,6 +2,7 @@
 
 package dev.s7a.f
 
+import dev.s7a.f.fileProvider.FlexibleFileProvider.Companion.asFlexible
 import io.ktor.server.application.install
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory
 val logger: Logger = LoggerFactory.getLogger("FileServer")
 
 fun main() {
-    val fileProvider = Config.fileProvider
+    val fileProvider = Config.fileProvider.asFlexible(Config.enableFlexible)
     fileProvider.printSettings()
     embeddedServer(CIO, port = Config.port) {
         install(CallLogging)

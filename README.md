@@ -8,6 +8,7 @@
 ## Features
 
 - Easy startup
+- [Flexible mode](#flexible-mode)
 - Support WebDAV
 - Support compress (gzip, deflate)
 
@@ -31,8 +32,14 @@ Port=8080
 # - WebDAV
 FileProvider=Local
 
+# If a local file exists, respond with that file
+# - Used when FileProvider is not Local
+# - default: false
+FlexibleMode=false
+
 # Root folder to get files
 # - Used when FileProvider is Local
+#   or FlexibleMode is true
 # - default: ./
 FileProvider_Local_Root=./
 
@@ -48,6 +55,10 @@ FileProvider_WebDAV_UserName=
 # - Used when FileProvider is WebDAV
 FileProvider_WebDAV_Password=
 ```
+
+#### Flexible mode
+
+If a local file exists, respond with that file. You can use LocalFileProvider and another FileProvider (such as WebDAV FileProvider).
 
 #### File download source
 
