@@ -36,7 +36,7 @@ object Config : PropertiesFile("config.properties") {
             /**
              * Root folder
              */
-            val root by keyValue("FileProvider_Local_Root").default("./")
+            val root by keyValue("FileProvider_Local_Root").default("public")
         }
 
         /**
