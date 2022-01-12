@@ -58,12 +58,9 @@ object WebDAVFileProvider : FileProvider {
     }
 
     override suspend fun get(path: String): File? {
-        val suffix = path.substringAfterLast('.', "").let { extension ->
-            if (extension.isEmpty()) "" else ".$extension"
-        }
         val response = client.get("$url/$path")
         return if (response.status.isSuccess()) {
-            createTempFile(suffix = suffix).toFile().apply {
+            createTempFile().toFile().apply {
                 writeBytes(response.readBytes())
                 clientLogger.info("${response.status}: $path (${length()})")
             }
