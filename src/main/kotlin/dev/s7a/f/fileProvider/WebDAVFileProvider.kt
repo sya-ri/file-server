@@ -9,10 +9,8 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BasicAuthCredentials
 import io.ktor.client.plugins.auth.providers.basic
 import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsChannel
+import io.ktor.client.statement.readBytes
 import io.ktor.http.isSuccess
-import io.ktor.util.cio.writeChannel
-import io.ktor.utils.io.copyAndClose
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -66,7 +64,7 @@ object WebDAVFileProvider : FileProvider {
         val response = client.get("$url/$path")
         return if (response.status.isSuccess()) {
             createTempFile(suffix = suffix).toFile().apply {
-                response.bodyAsChannel().copyAndClose(writeChannel())
+                writeBytes(response.readBytes())
                 clientLogger.info("${response.status}: $path (${length()})")
             }
         } else {
