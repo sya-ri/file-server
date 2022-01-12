@@ -58,7 +58,7 @@ FileProvider_WebDAV_Password=
 
 #### Flexible mode
 
-If a local file exists, respond with that file. You can use LocalFileProvider and another FileProvider (such as WebDAV FileProvider).
+If a local file exists, respond with that file. You can use LocalFileProvider and another FileProvider (such as WebDAVFileProvider).
 
 #### File download source
 
