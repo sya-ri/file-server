@@ -9,7 +9,7 @@
 
 - Easy startup
 - [Flexible mode](#flexible-mode)
-- Support WebDAV
+- Support WebDAV (support ETag)
 - Support compress (gzip, deflate)
 
 ## Installation

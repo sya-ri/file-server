@@ -1,6 +1,7 @@
 package dev.s7a.f.fileProvider
 
 import dev.s7a.f.Config
+import dev.s7a.f.http.CacheList
 import dev.s7a.f.logger
 import dev.s7a.f.util.Statuses
 import io.ktor.client.HttpClient
@@ -9,7 +10,9 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BasicAuthCredentials
 import io.ktor.client.plugins.auth.providers.basic
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.statement.readBytes
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.isSuccess
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -57,15 +60,33 @@ object WebDAVFileProvider : FileProvider {
         add("password: *****")
     }
 
+    /**
+     * Cache list
+     */
+    private val cacheList = CacheList()
+
     override suspend fun get(path: String): File? {
-        val response = client.get("$url/$path")
-        return if (response.status.isSuccess()) {
-            createTempFile().toFile().apply {
-                writeBytes(response.readBytes())
-                clientLogger.info("${response.status}: $path (${length()})")
+        val cache = cacheList.get(path)
+        val response = client.get("$url/$path") {
+            if (cache != null) {
+                header("If-None-Match", cache.etag)
             }
-        } else {
-            null
+        }
+        val status = response.status
+        return when {
+            status == HttpStatusCode.NotModified -> {
+                return cache?.file
+            }
+            status.isSuccess() -> {
+                createTempFile().toFile().apply {
+                    writeBytes(response.readBytes())
+                    cacheList.update(path, this, response.headers["ETag"])
+                    clientLogger.info("$status: $path (${length()})")
+                }
+            }
+            else -> {
+                null
+            }
         }
     }
 }
