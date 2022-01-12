@@ -14,7 +14,7 @@
 
 ## Installation
 
-### 1. Download a file
+### 1. Download jar file
 
 https://github.com/sya-ri/file-server/releases
 
