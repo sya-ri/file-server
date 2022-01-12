@@ -65,6 +65,15 @@ If a local file exists, respond with that file. You can use LocalFileProvider an
 - Local
 - WebDAV (via Ktor client)
 
+### 3. Launch server
+
+```shell
+java -jar file-server-1.1.0.jar
+
+# with screen
+screen -AmdS file-server java -jar file-server-1.1.0.jar
+```
+
 ## Usage
 
 To download files.
