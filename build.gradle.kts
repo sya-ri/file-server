@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "dev.s7a.f"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
